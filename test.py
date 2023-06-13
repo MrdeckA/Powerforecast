@@ -74,7 +74,7 @@ def draw_main_page():
 
 
 # 2. horizontal menu
-selected2 = option_menu(None, ["Home", "Analyses", 'Prédictions'], 
+selected2 = option_menu(None, ['Prédictions'], 
     icons=['house', '', "list-task", 'gear'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
 if selected2 == "Home":
