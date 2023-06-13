@@ -2,7 +2,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from pathlib import Path
 import random
-from src import analysis,forecast
+from src import analysis 
+import src.forecast as h 
 
 
 
@@ -23,14 +24,8 @@ chemin_image = "https://raw.githubusercontent.com/MrdeckA/Powerforecast/main/%5B
 # st.image(chemin_image, width=300)
 
 
-
-
 style = """
     <style>
-        body {
-        margin-top: 0;
-        
-    }
         .image-container {
             display: flex;
             justify-content: center;
@@ -39,13 +34,11 @@ style = """
         
         .image-container img {
             max-width: 60%;
-            max-height: 100px;
-           
-        }
-        .text{
-            justify-content: center;
-            text-align: center;
-            font-style: bold;
+            max-height: 50%;
+            border-radius: 10px;
+            /box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);/
+            position: relative;
+            bottom: 5em;
         }
     </style>
 """
@@ -54,8 +47,8 @@ style = """
 
 
 # Affichage de l'image avec les styles CSS
-
 st.markdown(style, unsafe_allow_html=True)
+st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
 # st.write(f'<h3 class="text" >Prévision de la consommation énergétique</h3>', unsafe_allow_html=True)
 # pages = {
 #     "Home": home,
@@ -65,16 +58,14 @@ st.markdown(style, unsafe_allow_html=True)
 
 
 text = """
-La prédiction de la consommation énergétique est un réel enjeu pour les gestionnaires de réseau.
+L'autosuffisance énergétique demeure un enjeu de taille pour chaque nation.
 
-Nous proposons de faire une prévision instantanée de la consommation énergétique afin d'adopter la meilleure stratégie de stockage et de distribution.
+Notre projet consiste en une prévision instantanée de la consommation énergétique afin d'optimiser les réseaux de distribution et les adopter les meilleurs stratégies de stockage.
                                                                     
-Les modèles de ce projet ont été construits sur les données de la ville de Tétouan au Maroc. Les données de consommation sont données en KW pour 3 zones différentes: Zone 1, Zone 2 et Zone 3.
-Tétouan est une ville du Maroc avec une population de 380 000 habitants, occupant une superficie de 11 570 km². La ville est située dans la partie nord du pays et fait face à la mer Méditerranée.
-Le climat est particulièrement chaud et humide pendant l'été.
+Les modèles de ce projet ont été construits sur les données de la ville de Tétouan au Maroc et apposés à trois villes de cotonou dont Calavi, Ganhi et Akpakpa. Les données de consommation sont données en KW pour ces trois zones.
 
-Le mix énergétique du Maroc est constitué d'un mélange d'énergie fossiles et renouvelables. 
-Une bonne prédiction de la consommation permet au gestionnaire de réseau d'adapter sa stratégie de stockage.
+
+
 """
 
 def draw_main_page():
@@ -82,9 +73,9 @@ def draw_main_page():
         st.write(f"<div style='text-align: justify;'>{text}</div>", unsafe_allow_html=True)
         st.divider()
 
-st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
+# st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
 # 2. horizontal menu
-selected2 = option_menu(None, ["Accueil", "Etat de Consommation", 'Prédictions'], 
+selected2 = option_menu(None, ["Accueil", "Etat de Consommation", 'Prévisions'], 
     icons=['house', '', "list-task", 'gear'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
 if selected2 == "Accueil":
@@ -99,38 +90,5 @@ elif selected2 == "Etat de Consommation":
 
     analysis.data_analysis_func()
 
-elif selected2 == "Prédictions":
-    forecast.draw_forecast_page()
-
-
-# elif selected2 == "Prédictions":
-#     forecast.draw_forecast_page()
-    
-
-
-# 4. Manual Item Selection
-
-
-# if st.session_state.get('switch_button', False):
-#     st.session_state['menu_option'] = (st.session_state.get('menu_option',0) + 1) % 4
-#     manual_select = st.session_state['menu_option']
-# else:
-#     manual_select = None
-    
-# selected4 = option_menu(None, ["Home", "Upload", "Tasks", 'Settings'], 
-#     icons=['house', 'cloud-upload', "list-task", 'gear'], 
-#     orientation="horizontal", manual_select=manual_select, key='menu_4')
-# st.button(f"Move to Next {st.session_state.get('menu_option',1)}", key='switch_button')
-# selected4
-
-# 5. Add on_change callback
-# def on_change(key):
-#     selection = st.session_state[key]
-#     st.write(f"Selection changed to {selection}")
-    
-# selected5 = option_menu(None, ["Home", "Upload", "Tasks", 'Settings'],
-#                         icons=['house', 'cloud-upload', "list-task", 'gear'],
-#                         on_change=on_change, key='menu_5', orientation="horizontal")
-# selected5
-
-
+elif selected2 == "Prévisions":
+    h.draw_forecast_page()

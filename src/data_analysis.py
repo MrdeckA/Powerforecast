@@ -52,7 +52,16 @@ def boxplot_month(df,x_="hour",y_="Zone 1 Power Consumption"):
     sn.lineplot(data=df,x=x_,y=y_)
     # plt.plot(data=df,x=x_,y=y_)
     plt.show()
+
+def boxplot_months(df,x_="months",y_="Zone 1 Power Consumption"):
+    import matplotlib.pyplot as plt 
+    import seaborn as sn
+
+    plt.figure(figsize=(10,10))
+    sn.boxplot(data=df,x=x_,y=y_)
+    plt.show() 
     
+      
 def boxplot_min(df,x_="hour",y_="Zone 1 Power Consumption"):
     import matplotlib.pyplot as plt 
     import seaborn as sn
