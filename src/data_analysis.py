@@ -1,3 +1,4 @@
+import streamlit as st
 x_selected1=['hour', 'Temperature', 'months']
 x_selected2=['hour', 'months', 'general diffuse flows', 'Temperature', 'Humidity']
 x_selected3=['months', 'hour', 'Temperature']
@@ -7,6 +8,7 @@ def sanity(path_):
     if((path_.isna().sum()).sum()>0):
         path_.dropna(inplace=True)
 
+@st.cache_resource(experimental_allow_widgets=True)
 def importation_of_dataset(path_):
     import pandas as pd
     data_consumption=pd.read_csv(path_,index_col=0,parse_dates=['DateTime'])
@@ -60,8 +62,8 @@ def boxplot_months(df,x_="months",y_="Zone 1 Power Consumption"):
     plt.figure(figsize=(10,10))
     sn.boxplot(data=df,x=x_,y=y_)
     plt.show() 
-    
-      
+
+
 def boxplot_min(df,x_="hour",y_="Zone 1 Power Consumption"):
     import matplotlib.pyplot as plt 
     import seaborn as sn

@@ -18,21 +18,6 @@ from src.data_analysis import importation_of_dataset  , box_plot , add_month_or_
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def data_analysis_func():
     import pandas as pd
 
@@ -50,7 +35,7 @@ def data_analysis_func():
     # window = st.sidebar.selectbox("Période", ('Globale', 'Annuelle', 'Mensuelle', 'Journalière'))
     window = st.sidebar.selectbox("Période", ('Annuelle', 'Mensuelle', 'Journalière'))
 
-    st.sidebar.subheader('Villes du Benin')
+    st.sidebar.subheader('Zones')
     zones = st.sidebar.multiselect('Selectionner une zone', ['Akpakpa', 'Calavi', 'Ouidah'], ['Akpakpa', 'Calavi', 'Ouidah'])
     # plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
 
@@ -74,18 +59,18 @@ def data_analysis_func():
         #     with st.container():
         #         if "Akpakpa" in zones:
         #             with st.container():
-        #                 st.write("Consommation globale de la ville de Akpakpa ")
+        #                 st.write("Consommation globale de la zone de Akpakpa ")
         #                 st.pyplot(box_plot(path_, 'Zone 1 Power Consumption'))
                 
         #         if "Calavi" in zones:
         #             with st.container():
-        #                 st.write("Consommation globale de la ville de Calavi ")
+        #                 st.write("Consommation globale de la zone de Calavi ")
 
         #                 st.pyplot(box_plot(path_, 'Zone 2 Power Consumption'))
 
         #         if "Ouidah" in zones:
         #             with st.container():
-        #                 st.write("Consommation globale de la ville de Ouidah ")
+        #                 st.write("Consommation globale de la zone de Ouidah ")
 
         #                 st.pyplot(box_plot(path_, 'Zone 3 Power Consumption'))
                         # st.pyplot(box_plot(path_, y='Zone 3 Power Consumption'))
@@ -103,17 +88,17 @@ def data_analysis_func():
             # df_sub_data = path_[path_['months']==number]
             if "Akpakpa" in zones:
                 with st.container():
-                    st.write("**Consommation annuelle de la ville de Akpakpa**")
+                    st.write("**Consommation annuelle de la zone de Akpakpa**")
                     
                     st.pyplot(boxplot_year(path_, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
             if "Calavi" in zones:
                 with st.container():
-                    st.write("**Consommation annuelle de la ville de Calavi**")
+                    st.write("**Consommation annuelle de la zone de Calavi**")
 
                     st.pyplot(boxplot_year(path_, x_='months', y_='Zone 2 Power Consumption'))
             if "Ouidah" in zones:
                 with st.container():
-                    st.write("**Consommation annuelle de la ville de Ouidah**")
+                    st.write("**Consommation annuelle de la zone de Ouidah**")
                     st.pyplot(boxplot_year(path_, x_='months', y_='Zone 3 Power Consumption'))
 
 
