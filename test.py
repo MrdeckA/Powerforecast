@@ -78,7 +78,7 @@ selected2 = option_menu(None, ["Home", "Analyses", 'Prédictions'],
     icons=['house', '', "list-task", 'gear'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
 if selected2 == "Home":
-    st.image(f"https://raw.githubusercontent.com/MrdeckA/Powerforecast/main/Hosted/ai_face{get_random_img(['', '2', '3', '4', '5', '6', '7', '8', '9'])}.png")
+    st.image(f"Hosted/ai_face{get_random_img(['', '2', '3', '4', '5', '6', '7', '8'])}.png")
     draw_main_page()
 
 elif selected2 == "Analyses":
