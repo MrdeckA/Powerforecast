@@ -2,3 +2,4 @@ streamlit
 pandas
 plost
 streamlit_option_menu
+matplotlib
