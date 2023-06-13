@@ -50,4 +50,7 @@ footer.css-12gp8ed.eknhn3m4 {
 div.vg-tooltip-element {
   display: none;
 }
-
+.stApp {
+  margin-top: 0;
+  padding-top: 0;
+}

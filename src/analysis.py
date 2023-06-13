@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import random
 import datetime
-from src.data_analysis import importation_of_dataset  , box_plot , add_month_or_hour, boxplot_months, boxplot_min
+from src.data_analysis import importation_of_dataset  , box_plot , add_month_or_hour, boxplot_year, boxplot_min , boxplot_month
 
 
 
@@ -37,24 +37,27 @@ def data_analysis_func():
     import pandas as pd
 
     with open('style.css') as f:
+       
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
-    st.sidebar.header('Dashboard')
+        st.sidebar.header('Paramètres')
 
-    st.sidebar.subheader('Type de Visualisation')
-    viz_type = st.sidebar.radio('Selectioner', ('Temporelle', 'Autre'), index = 0) 
+    # st.sidebar.subheader('Type de Visualisation')
+    # viz_type = st.sidebar.radio('Selectioner', ('Temporelle', 'Autre'), index = 0) 
+    viz_type = 'Temporelle'
 
-    st.sidebar.subheader("Fenêtre d'Analyse")
-    window = st.sidebar.selectbox("Période", ('Globale', 'Annuelle', 'Mensuelle', 'Journalière'))
+    # st.sidebar.subheader("Fenêtre d'Analyse")
+    # window = st.sidebar.selectbox("Période", ('Globale', 'Annuelle', 'Mensuelle', 'Journalière'))
+    window = st.sidebar.selectbox("Période", ('Annuelle', 'Mensuelle', 'Journalière'))
 
-    st.sidebar.subheader('Zone de la ville de Tetouan')
-    zones = st.sidebar.multiselect('Selectionner une zone', ['Zone 1', 'Zone 2', 'Zone 3'], ['Zone 1', 'Zone 2', 'Zone 3'])
-    plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
+    st.sidebar.subheader('Villes du Benin')
+    zones = st.sidebar.multiselect('Selectionner une zone', ['Akpakpa', 'Calavi', 'Ouidah'], ['Akpakpa', 'Calavi', 'Ouidah'])
+    # plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
 
-    st.sidebar.markdown('''
-    ---
-        Created with ❤️ by [Hêviosso_Tech].
-    ''')
+    # st.sidebar.markdown('''
+    # ---
+    #     Created with ❤️ by [Hêviosso_Tech].
+    # ''')
 
 # \Powerforecast-main\Tetuan City power consumption.csv
 # Tetuan City power consumption.csv
@@ -66,24 +69,29 @@ def data_analysis_func():
     st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-    if viz_type == "Temporelle":
-        if window == "Globale":
-            with st.container():
-                if "Zone 1" in zones:
-                    with st.container():
-                        st.pyplot(box_plot(path_, 'Zone 1 Power Consumption'))
+    if viz_type :
+        # if window == "Globale":
+        #     with st.container():
+        #         if "Akpakpa" in zones:
+        #             with st.container():
+        #                 st.write("Consommation globale de la ville de Akpakpa ")
+        #                 st.pyplot(box_plot(path_, 'Zone 1 Power Consumption'))
                 
-                if "Zone 2" in zones:
-                    with st.container():
-                        st.pyplot(box_plot(path_, 'Zone 2 Power Consumption'))
+        #         if "Calavi" in zones:
+        #             with st.container():
+        #                 st.write("Consommation globale de la ville de Calavi ")
 
-                if "Zone 3" in zones:
-                    with st.container():
-                        st.pyplot(box_plot(path_, 'Zone 3 Power Consumption'))
+        #                 st.pyplot(box_plot(path_, 'Zone 2 Power Consumption'))
+
+        #         if "Ouidah" in zones:
+        #             with st.container():
+        #                 st.write("Consommation globale de la ville de Ouidah ")
+
+        #                 st.pyplot(box_plot(path_, 'Zone 3 Power Consumption'))
                         # st.pyplot(box_plot(path_, y='Zone 3 Power Consumption'))
 
 
-        elif window == "Annuelle":
+        if window == "Annuelle":
             # rand_month = int(random.randint(1,12))
             # number = st.number_input('Indiquer un numéro de mois (de 1 à 12)',
             #                          step=1, min_value=1, max_value=12,
@@ -93,19 +101,24 @@ def data_analysis_func():
             # if (number < 1) or (number > 12):
             #     number = rand_month
             # df_sub_data = path_[path_['months']==number]
-            if "Zone 1" in zones:
+            if "Akpakpa" in zones:
                 with st.container():
-                    st.pyplot(boxplot_months(path_, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
-            if "Zone 2" in zones:
+                    st.write("**Consommation annuelle de la ville de Akpakpa**")
+                    
+                    st.pyplot(boxplot_year(path_, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
+            if "Calavi" in zones:
                 with st.container():
-                    st.pyplot(boxplot_months(path_, x_='months', y_='Zone 2 Power Consumption'))
-            if "Zone 3" in zones:
+                    st.write("**Consommation annuelle de la ville de Calavi**")
+
+                    st.pyplot(boxplot_year(path_, x_='months', y_='Zone 2 Power Consumption'))
+            if "Ouidah" in zones:
                 with st.container():
-                    st.write("**Zone 1 : consommation annuelle**")
-                    st.pyplot(boxplot_months(path_, x_='months', y_='Zone 3 Power Consumption'))
+                    st.write("**Consommation annuelle de la ville de Ouidah**")
+                    st.pyplot(boxplot_year(path_, x_='months', y_='Zone 3 Power Consumption'))
 
 
         elif window == "Mensuelle":
+            path_['Jours'] = path_.index.dayofweek *4 + 5
             rand_month = random.randint(1,12)
             number = st.number_input('Indiquer un numéro de mois (de 1 à 12)',
                                      step=1, min_value=1, max_value=12,
@@ -113,24 +126,26 @@ def data_analysis_func():
             if (number < 1) or (number > 12):
                 number = rand_month
             df_sub_data = path_[path_['months']==number]
-            if "Zone 1" in zones:
+            if "Akpakpa" in zones:
                 with st.container():
-                    st.write("**Zone 1 : consommation du mois**")
-                    st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
+                    st.write("**Akpakpa : consommation mensuelle**")
+                    st.pyplot(boxplot_month(df_sub_data, x_='Jours', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
             
-            if "Zone 2" in zones:
+            if "Calavi" in zones:
                 with st.container():
-                    st.write("**Zone 2 : consommation du mois**")
-                    st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 2 Power Consumption'))
-            if "Zone 3" in zones:
+                    st.write("**Calavi : consommation mensuelle**")
+                    st.pyplot(boxplot_month(df_sub_data, x_='Jours', y_='Zone 2 Power Consumption'))
+            if "Ouidah" in zones:
                 with st.container():
-                    st.write("**Zone 3 : consommation du mois**")
-                    st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 3 Power Consumption'))
+                    st.write("**Ouidah : consommation mensuelle**")
+                    st.pyplot(boxplot_month(df_sub_data, x_='Jours', y_='Zone 3 Power Consumption'))
 
 
         elif window == 'Journalière':
             first_day = path_.index[0]
             last_day = path_.index[-1]
+            
+
             
             date_range = \
             st.date_input("Choisisez une période de visualisation",
@@ -141,20 +156,20 @@ def data_analysis_func():
                     
             df_sub_data = path_[date_range[0]:date_range[1]]
             with st.container():
-                if "Zone 1" in zones:
-                    st.write("**Zone 1 : consommation en fonction des heures**")
+                if "Akpakpa" in zones:
+                    st.write("**Akpakpa : consommation journalière**")
                     st.pyplot(boxplot_min(df_sub_data, x_='hour',
                                                 y_='Zone 1 Power Consumption',
                                                 ))
                 
-                if "Zone 2" in zones:
-                    st.write("**Zone 2 : consommation en fonction des heures**")
+                if "Calavi" in zones:
+                    st.write("**Calavi : consommation journalière**")
                     st.pyplot(boxplot_min(df_sub_data, x_='hour',
                                                 y_='Zone 2 Power Consumption',
                                                 ))
                 
-                if "Zone 3" in zones:
-                    st.write("**Zone 3 : consommation en fonction des heures**")
+                if "Ouidah" in zones:
+                    st.write("**Ouidah : consommation journalière**")
                     st.pyplot(boxplot_min(df_sub_data, x_='hour',
                                                 y_='Zone 3 Power Consumption',
                                                 ))

@@ -16,7 +16,8 @@ def box_plot(data_consumption, col):
     import seaborn as sn
     import matplotlib.pyplot as plt 
     sn.boxplot(data_consumption[col])
-    plt.title('{}'.format(col))
+    # sn.plot(data_consumption[col])
+    # plt.title('{}'.format(col))
     
 def histplot_(col,data_consumption):
     import seaborn as sn
@@ -30,19 +31,34 @@ def plot_series(columns_,data_consumption):
     data_consumption[columns_].plot(subplots=True, figsize=(30, 30))        
 
     
-def boxplot_months(df,x_="months",y_="Zone 1 Power Consumption"):
+def boxplot_year(df,x_="months",y_="Zone 1 Power Consumption"):
     import matplotlib.pyplot as plt 
     import seaborn as sn
 
-    plt.figure(figsize=(10,10))
-    sn.boxplot(data=df,x=x_,y=y_)
+    plt.figure(figsize=(10,3))
+    # sn.boxplot(data=df,x=x_,y=y_)
+    # sn.histplot(data=df,x=x_,y=y_)
+    sn.lineplot(data=df,x=x_,y=y_)
+    # plt.plot(data=df,x=x_,y=y_)
+    plt.show()
+
+def boxplot_month(df,x_="hour",y_="Zone 1 Power Consumption"):
+    import matplotlib.pyplot as plt 
+    import seaborn as sn
+
+    plt.figure(figsize=(7,3))
+    # sn.boxplot(data=df,x=x_,y=y_)
+    # sn.histplot(data=df,x=x_,y=y_)
+    sn.lineplot(data=df,x=x_,y=y_)
+    # plt.plot(data=df,x=x_,y=y_)
     plt.show()
     
 def boxplot_min(df,x_="hour",y_="Zone 1 Power Consumption"):
     import matplotlib.pyplot as plt 
     import seaborn as sn
-    plt.figure(figsize=(10,10))
-    sn.boxplot(data=df,x=x_,y=y_)
+    plt.figure(figsize=(10,3))
+    sn.lineplot(data=df,x=x_,y=y_)
+    # sn.boxplot(data=df,x=x_,y=y_)
     plt.show()
 
     

@@ -6,12 +6,16 @@ from src import analysis,forecast
 
 
 
+def load_custom_css():
+    st.markdown('<link href="style.css" rel="stylesheet">', unsafe_allow_html=True)
+
+# Appeler la fonction pour charger le CSS personnalisé
 
 def get_random_img(img_names: list[str]) -> str:
     return random.choice(img_names)
 
 
-
+load_custom_css()
 # Chemin vers l'image que tu veux afficher
 chemin_image = "https://raw.githubusercontent.com/MrdeckA/Powerforecast/main/%5Bremoval.ai%5D_tmp-6485f96db5931_WAI3XY.png"
 
@@ -23,6 +27,10 @@ chemin_image = "https://raw.githubusercontent.com/MrdeckA/Powerforecast/main/%5B
 
 style = """
     <style>
+        body {
+        margin-top: 0;
+        
+    }
         .image-container {
             display: flex;
             justify-content: center;
@@ -31,11 +39,13 @@ style = """
         
         .image-container img {
             max-width: 60%;
-            max-height: 50%;
-            border-radius: 10px;
-            /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);*/
-            position: relative;
-            bottom: 2em;
+            max-height: 100px;
+           
+        }
+        .text{
+            justify-content: center;
+            text-align: center;
+            font-style: bold;
         }
     </style>
 """
@@ -44,9 +54,9 @@ style = """
 
 
 # Affichage de l'image avec les styles CSS
-st.markdown(style, unsafe_allow_html=True)
-st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
 
+st.markdown(style, unsafe_allow_html=True)
+# st.write(f'<h3 class="text" >Prévision de la consommation énergétique</h3>', unsafe_allow_html=True)
 # pages = {
 #     "Home": home,
 #     "Upload": data_analysis,
@@ -72,16 +82,21 @@ def draw_main_page():
         st.write(f"<div style='text-align: justify;'>{text}</div>", unsafe_allow_html=True)
         st.divider()
 
-
+st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
 # 2. horizontal menu
-selected2 = option_menu(None, ["Home", "Analyses", 'Prédictions'], 
+selected2 = option_menu(None, ["Accueil", "Etat de Consommation", 'Prédictions'], 
     icons=['house', '', "list-task", 'gear'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
-if selected2 == "Home":
-    st.image(f"Hosted/ai_face{get_random_img(['', '2', '3', '4', '5', '6', '7', '8'])}.png")
-    draw_main_page()
+if selected2 == "Accueil":
+    # st.image(f"Hosted/ai_face{get_random_img(['', '2', '3', '4', '5', '6', '7', '8'])}.png")
+    #st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
 
-elif selected2 == "Analyses":
+    draw_main_page()
+    
+
+elif selected2 == "Etat de Consommation":
+    st.write(f"<h4 style='text-align: justify;'>Habitudes de consommation</h3>", unsafe_allow_html=True)
+
     analysis.data_analysis_func()
 
 elif selected2 == "Prédictions":

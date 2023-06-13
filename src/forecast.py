@@ -9,22 +9,22 @@ def draw_forecast_page():
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
-    st.sidebar.header('Prédictions de la consommation énergétique')
+    # st.sidebar.header('Prédictions de la consommation énergétique')
 
-    st.sidebar.subheader('Type de Visualisation')
-    time_hist_color = st.sidebar.selectbox('Selectioner', ('Temporelle', 'Autre')) 
+    # st.sidebar.subheader('Type de Visualisation')
+    # time_hist_color = st.sidebar.selectbox('Selectioner', ('Temporelle', 'Autre')) 
 
-    st.sidebar.subheader("Fenêtre d'Analyse")
-    donut_theta = st.sidebar.selectbox("Période", ('Globale', 'Mensuelle', 'Journalière','Personnalisée'))
+    # st.sidebar.subheader("Fenêtre d'Analyse")
+    # donut_theta = st.sidebar.selectbox("Période", ('Globale', 'Mensuelle', 'Journalière','Personnalisée'))
 
-    st.sidebar.subheader('Zone de la ville de Tetouan')
-    plot_data = st.sidebar.multiselect('Selectionner une zone', ['Zone 1', 'Zone 2', 'Zone 3'], ['Zone 1', 'Zone 2', 'Zone 3'])
-    plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
+    # st.sidebar.subheader('Zone de la ville de Tetouan')
+    # plot_data = st.sidebar.multiselect('Selectionner une zone', ['Zone 1', 'Zone 2', 'Zone 3'], ['Zone 1', 'Zone 2', 'Zone 3'])
+    # plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
 
-    st.sidebar.markdown('''
-    ---
-        Created with ❤️ by [PowerForecast_Team](/).
-    ''')
+    # st.sidebar.markdown('''
+    # ---
+    #     Created with ❤️ by [PowerForecast_Team](/).
+    # ''')
 
 
     # Row A
