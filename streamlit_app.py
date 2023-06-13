@@ -1,63 +1,94 @@
 import streamlit as st
-import pandas as pd
-import plost
+from streamlit_option_menu import option_menu
+from pathlib import Path
+import random
+from src import analysis 
+import src.forecast as h 
 
-st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 
-with open('style.css') as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+def load_custom_css():
+    st.markdown('<link href="style.css" rel="stylesheet">', unsafe_allow_html=True)
+
+# Appeler la fonction pour charger le CSS personnalisé
+
+def get_random_img(img_names: list[str]) -> str:
+    return random.choice(img_names)
+
+
+load_custom_css()
+# Chemin vers l'image que tu veux afficher
+chemin_image = "https://raw.githubusercontent.com/MrdeckA/Powerforecast/main/%5Bremoval.ai%5D_tmp-6485f96db5931_WAI3XY.png"
+
+# Affichage de l'image
+# st.image(chemin_image, width=300)
+
+
+style = """
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-container img {
+            max-width: 60%;
+            max-height: 50%;
+            border-radius: 10px;
+            /box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);/
+            position: relative;
+            bottom: 5em;
+        }
+    </style>
+"""
+
+
+
+
+# Affichage de l'image avec les styles CSS
+st.markdown(style, unsafe_allow_html=True)
+st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
+# st.write(f'<h3 class="text" >Prévision de la consommation énergétique</h3>', unsafe_allow_html=True)
+# pages = {
+#     "Home": home,
+#     "Upload": data_analysis,
+#     "Tasks": predictions,
+# }
+
+
+text = """
+L'autosuffisance énergétique demeure un enjeu de taille pour chaque nation.
+
+Notre projet consiste en une prévision instantanée de la consommation énergétique afin d'optimiser les réseaux de distribution et les adopter les meilleurs stratégies de stockage.
+                                                                    
+Les modèles de ce projet ont été construits sur les données de la ville de Tétouan au Maroc et apposés à trois villes de cotonou dont Calavi, Ganhi et Akpakpa. Les données de consommation sont données en KW pour ces trois zones.
+
+
+
+"""
+
+def draw_main_page():
+        st.divider()
+        st.write(f"<div style='text-align: justify;'>{text}</div>", unsafe_allow_html=True)
+        st.divider()
+
+# st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
+# 2. horizontal menu
+selected2 = option_menu(None, ["Accueil", "Etat de Consommation", 'Prévisions'], 
+    icons=['house', '', "list-task", 'gear'], 
+    menu_icon="cast", default_index=0, orientation="horizontal")
+if selected2 == "Accueil":
+    # st.image(f"Hosted/ai_face{get_random_img(['', '2', '3', '4', '5', '6', '7', '8'])}.png")
+    #st.markdown(f'<div class="image-container"><img src="{chemin_image}" alt="Ma superbe image"></div>', unsafe_allow_html=True)
+
+    draw_main_page()
     
-st.sidebar.header('Dashboard')
 
-st.sidebar.subheader('Type de Visualisation')
-time_hist_color = st.sidebar.selectbox('Selectioner', ('Temporelle', 'Autre')) 
+elif selected2 == "Etat de Consommation":
+    st.write(f"<h4 style='text-align: justify;'>Habitudes de consommation</h3>", unsafe_allow_html=True)
 
-st.sidebar.subheader("Fenêtre d'Analyse")
-donut_theta = st.sidebar.selectbox("Période", ('Globale', 'Mensuelle', 'Journalière','Personnalisée'))
+    analysis.data_analysis_func()
 
-st.sidebar.subheader('Zone de la ville de Tetouan')
-plot_data = st.sidebar.multiselect('Selectionner une zone', ['Zone 1', 'Zone 2', 'Zone 3'], ['Zone 1', 'Zone 2', 'Zone 3'])
-plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
-
-st.sidebar.markdown('''
----
-Created with ❤️ by [PowerForecast](/).
-''')
-
-
-# # Row A
-# st.markdown('### Metrics')
-# col1, col2, col3 = st.columns(3)
-# col1.metric("Temperature", "70 °F", "1.2 °F")
-# col2.metric("Wind", "9 mph", "-8%")
-# col3.metric("Humidity", "86%", "4%")
-
-# Row B
-seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
-stocks = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/stocks_toy.csv')
-
-c1, c2 = st.columns((7,3))
-with c1:
-    st.markdown('### Heajojnno')
-    plost.time_hist(
-    data=seattle_weather,
-    date='date',
-    x_unit='week',
-    y_unit='day',
-    color=time_hist_color,
-    aggregate='median',
-    legend=None,
-    height=345,
-    use_container_width=True)
-with c2:
-    st.markdown('### Donut chart')
-    plost.donut_chart(
-        data=stocks,
-        theta=donut_theta,
-        color='company',
-        legend='bottom', 
-        use_container_width=True)
-
-# Row C
-st.markdown('### Line chart')
-st.line_chart(seattle_weather, x = 'date', y = plot_data, height = plot_height)
+elif selected2 == "Prévisions":
+    h.draw_forecast_page()
