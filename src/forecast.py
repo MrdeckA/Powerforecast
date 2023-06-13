@@ -3,6 +3,7 @@ import pandas as pd
 from io import StringIO
 import plost
 import pickle
+import pickle
 from streamlit_option_menu import option_menu
 from src.data_analysis import importation_of_dataset  , box_plot , add_month_or_hour, boxplot_months
 import numpy as np
