@@ -77,7 +77,7 @@ def draw_forecast_page():
     
     with st.container():
        st.write("")
-       st.write(f""" ### Prédictions des différents modèles pas zone  """)
+    #    st.write(f""" ### Prédictions des différents modèles pas zone  """)
        st.info("""
           :point_down: **Résultats obtenus par zone**
       """)
