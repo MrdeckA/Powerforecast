@@ -82,26 +82,37 @@ def data_analysis_func():
 
 
         elif window == "Mensuelle":
-            rand_month = int(random.randint(1.12))
+            # rand_month = int(random.randint(1,12))
+            # number = st.number_input('Indiquer un numéro de mois (de 1 à 12)',
+            #                          step=1, min_value=1, max_value=12,
+            #                          format="%d", value=rand_month)
+            # if (number < 1) or (number > 12):
+            #     number = rand_month
+            # if (number < 1) or (number > 12):
+            #     number = rand_month
+            # df_sub_data = path_[path_['months']==number]
+            with st.container():
+                st.pyplot(boxplot_months(path_, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
+            with st.container():
+                st.pyplot(boxplot_months(path_, x_='months', y_='Zone 2 Power Consumption'))
+            with st.container():
+                st.pyplot(boxplot_months(path_, x_='months', y_='Zone 3 Power Consumption'))
+
+
+        elif window == "Personnalisée":
+            rand_month = random.randint(1,12)
             number = st.number_input('Indiquer un numéro de mois (de 1 à 12)',
                                      step=1, min_value=1, max_value=12,
-                                     format="%d", value=rand_month)
-            if (number < 1) or (number > 12):
-                number = rand_month
+                                     format="%d", value=1)
             if (number < 1) or (number > 12):
                 number = rand_month
             df_sub_data = path_[path_['months']==number]
             with st.container():
-                st.pyplot(boxplot_months(df_sub_data, 'Zone 1 Power Consumption',
-                                         title="Zone 1 power consumption (KW)"))
+                st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 1 Power Consumption')) #title="Zone 1 power consumption (KW)"
             with st.container():
-                st.pyplot(boxplot_months(df_sub_data, 'Zone 2 Power Consumption',
-                                         title="Zone 2 power consumption (KW)"))
+                st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 2 Power Consumption'))
             with st.container():
-                st.pyplot(boxplot_months(df_sub_data, 'Zone 3 Power Consumption',
-                                         title="Zone 3 power consumption (KW)"))
-
-
+                st.pyplot(boxplot_months(df_sub_data, x_='months', y_='Zone 3 Power Consumption'))
     # Row A
     # st.markdown('### Metrics')
     # col1, col2, col3 = st.columns(3)
