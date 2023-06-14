@@ -32,8 +32,8 @@ def mpl_display_ts_multiple_predictions(df_data, l_pred_col, true_y, x_label='',
                      loc='upper left', borderaxespad=0)
         ax.set_ylabel(y_label)
     fig.suptitle(title)
-    # return (fig, df_data[:5], df_data)
-    return (fig, df_data[:5])
+    # return (fig, df_data[:5], df_data)ù
+    return (fig, df_data[:5].values.reshape(1,-1))
 
 def read_pred_results(file_pkl):
     with open(file_pkl, 'rb') as fp:
@@ -143,11 +143,13 @@ def draw_forecast_page():
     if window == 'Globale':           
         with st.container():
             with st.spinner(text="En cours ..."):
-                    st.write(mpl_display_ts_multiple_predictions(
+                st.write("<h1 style='text-align: justify;'>Prévisions</h1>", unsafe_allow_html=True)
+                    
+                st.write(mpl_display_ts_multiple_predictions(
                         df_data, l_pred_col=l_pred_col,
                         true_y=target, x_label='', y_label="Consumption (KW)",
                         title="", ax_titles=ax_titles)[1])
-                    st.pyplot(mpl_display_ts_multiple_predictions(
+                st.pyplot(mpl_display_ts_multiple_predictions(
                         df_data, l_pred_col=l_pred_col,
                         true_y=target, x_label='', y_label="Consumption (KW)",
                         title="", ax_titles=ax_titles)[0])
@@ -177,7 +179,10 @@ def draw_forecast_page():
             #             df_sub_data, l_pred_col=l_pred_col,
             #             true_y=target, x_label='', y_label="Consumption (KW)",
             #             title="", ax_titles=ax_titles)[1])
+            st.write("<h1 style='text-align: justify;'>Prévisions</h1>", unsafe_allow_html=True)
             if not st.button('Voir plus de valeurs'):
+                
+
                 st.write(mpl_display_ts_multiple_predictions(
                         df_sub_data, l_pred_col=l_pred_col,
                         true_y=target, x_label='', y_label="Consumption (KW)",
