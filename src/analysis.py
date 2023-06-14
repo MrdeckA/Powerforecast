@@ -32,7 +32,7 @@ def data_analysis_func():
     viz_type = 'Temporelle'
 
     # st.sidebar.subheader("Fenêtre d'Analyse")
-    # window = st.sidebar.selectbox("Période", ('Globale', 'Annuelle', 'Mensuelle', 'Journalière'))
+    # window = st.sidebar.selectbox("Période", ('Globale', 'Annuelle', 'Mensuelle', 'Journalière'), index = 3)
     window = st.sidebar.selectbox("Période", ('Annuelle', 'Mensuelle', 'Journalière'))
 
     st.sidebar.subheader('Zones')
