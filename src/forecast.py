@@ -86,7 +86,7 @@ def draw_forecast_page():
         zone_col, window_col= st.columns(2)
         
         with zone_col:
-            zones = st.radio('**Zones de la ville de Tétouan**',
+            zones = st.radio('**Villes du Bénin**',
                              ('Akpakpa', 'Calavi', 'Ganhi'))
         
 
@@ -179,7 +179,7 @@ def draw_forecast_page():
             #             df_sub_data, l_pred_col=l_pred_col,
             #             true_y=target, x_label='', y_label="Consumption (KW)",
             #             title="", ax_titles=ax_titles)[1])
-            st.write("<h1 style='text-align: justify;'>Prévisions</h1>", unsafe_allow_html=True)
+            st.write("<h1 style='text-align: justify;'>Prévisions energétique en KW chaque 10min</h1>", unsafe_allow_html=True)
             if not st.button('Voir plus de valeurs'):
                 
 
